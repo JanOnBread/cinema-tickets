@@ -7,6 +7,16 @@
   },
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/pairtest/TicketService.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:lint": "eslint ."
   },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "0.2.0",
+    "globals": "17.4.0"
+  },
+  "dependencies": {
+    "jest": "^30.3.0"
+  }
 }
