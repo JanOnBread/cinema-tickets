@@ -7,3 +7,5 @@ export const CHILD_TYPE = "CHILD";
 export const INFANT_TYPE = "INFANT";
 
 export const TEST_ACCOUNT_ID = 123456789;
+
+export const MAX_TICKET_PURCHASE = 25;
