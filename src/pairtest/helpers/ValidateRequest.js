@@ -1,6 +1,8 @@
 import InvalidPurchaseException from "../lib/InvalidPurchaseException";
 
 export function validateRequest(accountID, requestedTickets) {
+  logger.debug("In validateRequest()");
+
   validateAccountID(accountID);
   validateNumberOfTickets(requestedTickets);
   validateTicketsLogic(requestedTickets);
@@ -12,6 +14,8 @@ export function validateRequest(accountID, requestedTickets) {
  * @description validates the account is numeric. Throws error when invalid
  */
 function validateAccountID(accountID) {
+  logger.debug("In validateAccountID()");
+
   if (typeof accountID !== "number") {
     throw new TypeError("account ID is not an number");
   }
@@ -22,6 +26,8 @@ function validateAccountID(accountID) {
 }
 
 function validateNumberOfTickets(requestedTickets) {
+  logger.debug("In validateNumberOfTickets()");
+
   // no negative tickets
   if (
     requestedTickets.adult < 0 ||
@@ -50,6 +56,8 @@ function validateNumberOfTickets(requestedTickets) {
 }
 
 function validateTicketsLogic(requestedTickets) {
+  logger.debug("In validateTicketsLogic()");
+
   // #child/infant ticket < adult ticket
   if (
     requestedTickets.adult <
