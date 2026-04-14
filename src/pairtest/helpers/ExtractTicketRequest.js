@@ -8,23 +8,18 @@ import * as constants from "./../../utils/constants";
 export default function extractTicketRequest(ticketTypeRequests) {
   logger.debug("In extractTicketRequest()");
 
-  let adultCount = 0,
-    childCount = 0,
-    infantCount = 0;
+  const ticketCounts = {
+    [constants.ADULT_TYPE]: 0,
+    [constants.CHILD_TYPE]: 0,
+    [constants.INFANT_TYPE]: 0,
+  };
 
   for (const ticket of ticketTypeRequests) {
-    if (ticket.getTicketType() === constants.ADULT_TYPE) {
-      adultCount = ticket.getNoOfTickets();
-    } else if (ticket.getTicketType() === constants.CHILD_TYPE) {
-      childCount = ticket.getNoOfTickets();
-    } else if (ticket.getTicketType() === constants.INFANT_TYPE) {
-      infantCount = ticket.getNoOfTickets();
+    const ticketType = ticket.getTicketType();
+    if (ticketCounts.hasOwnProperty(ticketType)) {
+      ticketCounts[ticketType] = ticket.getNoOfTickets();
     }
   }
 
-  return {
-    adult: adultCount,
-    child: childCount,
-    infant: infantCount,
-  };
+  return ticketCounts;
 }

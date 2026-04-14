@@ -4,7 +4,7 @@ import * as error from "./../../utils/errors";
 
 /**
  * @param {Number} accountID
- * @param {{adult: number, child: number, infant : number}} requestedTickets
+ * @param {{ADULT: number, CHILD: number, INFANT : number}} requestedTickets
  * @description validates the account is numeric. Throws error when invalid
  */
 export function validateRequest(accountID, requestedTickets) {
@@ -36,21 +36,21 @@ export function validateNumberOfTickets(requestedTickets) {
 
   // no negative tickets
   if (
-    requestedTickets.adult < 0 ||
-    requestedTickets.infant < 0 ||
-    requestedTickets.child < 0
+    requestedTickets.ADULT < 0 ||
+    requestedTickets.INFANT < 0 ||
+    requestedTickets.CHILD < 0
   ) {
     throw new InvalidPurchaseException(error.NEGATIVE_TICKETS);
   }
 
   // at lest 1 adult ticket
-  if (requestedTickets.adult === 0) {
+  if (requestedTickets.ADULT === 0) {
     throw new InvalidPurchaseException(error.ONE_ADULT_TICKET);
   }
 
   // total != 25
   if (
-    requestedTickets.adult + requestedTickets.infant + requestedTickets.child >
+    requestedTickets.ADULT + requestedTickets.INFANT + requestedTickets.CHILD >
     25
   ) {
     throw new InvalidPurchaseException(error.OVER_25_TICKETS);
@@ -61,7 +61,7 @@ export function validateTicketsLogic(requestedTickets) {
   logger.debug("In validateTicketsLogic()");
 
   //  # adult < infant
-  if (requestedTickets.adult < requestedTickets.infant) {
+  if (requestedTickets.ADULT < requestedTickets.INFANT) {
     throw new InvalidPurchaseException(error.INFANT_MORE_THAN_ADULT);
   }
 }
