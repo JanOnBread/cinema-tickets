@@ -17,9 +17,10 @@ export default function extractTicketRequest(ticketTypeRequests) {
   for (const ticket of ticketTypeRequests) {
     const ticketType = ticket.getTicketType();
     if (ticketCounts.hasOwnProperty(ticketType)) {
-      ticketCounts[ticketType] = ticket.getNoOfTickets();
+      ticketCounts[ticketType] += ticket.getNoOfTickets();
     }
   }
 
+  console.log(ticketCounts);
   return ticketCounts;
 }

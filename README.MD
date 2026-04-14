@@ -1,16 +1,16 @@
 # CINEMA TICKETS
 
-A Javascript service which simulates a microservice connections between 'TickerService.js', TicketPaymentService.js and ServiceReservationService.js.
+A JavaScript service simulating microservice interactions between `TickerService.js`, `TicketPaymentService.js`, and `ServiceReservationService.js`.
 
-For this test, I will be mainly focusing on fleshing out TickerService.js so it can meet the following business conditions below. I will aso be writing clean, well-tested and reusable code.
+For this test, the focus will be on developing the `TickerService.js` to meet the following business requirements. The code will be clean, reusable, and well-tested.
 
-The main logic is in the TickerService Class located in TicketService.js. It accepts a numeric account id and an array of TicketTypeRequests. There are 3 types of tickets: Adult, Child and Infant. The service will validate against business rules, calculate the total cost of the purchase and number of seats required, then call third party services to take payment and reserve seats. The service will return the total cost of the tickets plus the number of seats reserved.
+The core logic resides in the `TickerService` class in `TickerService.js`. It accepts a numeric account ID and an array of ticket requests. There are three ticket types: `ADULT`, `CHILD`, and `INFANT`. The service validates the requests based on business rules, calculates the total cost and required number of seats, then calls external services to process payment and reserve the seats. Finally, the service returns the total ticket cost and the number of seats reserved.
 
 # Business rules and conditions
 
 ![alt text](resource/image.png)
 
-- There are 3 types of tickets i.e. Infant, Child, and Adult.
+- There are 3 types of tickets i.e. `INFANT`, `CHILD`, and `ADULT`.
 
 - The ticket prices are based on the type of ticket.
 
@@ -42,16 +42,19 @@ The main logic is in the TickerService Class located in TicketService.js. It acc
 
 # Logic to apply
 
-Looking at the business rules and assumptions, we formate that into logic and validations we should apply to the code.
+Looking at the business rules and assumptions, we format that into logic and validations we should apply to the code.
 
 ## Ways validation would fail
 
-- If child and infant tickets are selected without an adult ticket ie {child : 1+, infant: 1+, adult : 0 }
-- At least one adult ticket must be purchased
+- If the account ID was not a number or negative.
 
-## Our own assumption
+- If a negative number of tickets was attempted to be purchased
 
-- A adult can only have 1 infant on their lap so the # adult ticket must be greater or equal to # infant tickets
+- If child and infant tickets are selected without an adult ticket ie {CHILD : 1+, INFANT: 1+, ADULT : 0 } which means at least one adult ticket must be purchased.
+
+- if more then 25 tickets were being purchased at once
+
+- Assume adult can only have 1 infant on their lap so the # adult ticket must be greater or equal to # infant tickets
 
 # Setup
 
@@ -67,12 +70,6 @@ To install packages and dependencies:
 npm install
 ```
 
-We start the service via the command:
-
-```
-npm run start
-```
-
 # Tests
 
 The unit tests can be ran with
@@ -81,7 +78,7 @@ The unit tests can be ran with
 npm run test:unit
 ```
 
-Linting test would check our code quality from the linting rules. We can run these test by the following command.
+We can run our linting test via
 
 ```
 npm run test:lint

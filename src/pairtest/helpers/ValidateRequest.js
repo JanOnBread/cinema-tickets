@@ -31,6 +31,10 @@ export function validateAccountID(accountID) {
   }
 }
 
+/**
+ * @param  {{ADULT: number, CHILD: number, INFANT : number}} requestedTickets
+ * @description validates the number of tickets to be purchased and if it breaks any business conditions
+ */
 export function validateNumberOfTickets(requestedTickets) {
   logger.debug("In validateNumberOfTickets()");
 
@@ -57,6 +61,10 @@ export function validateNumberOfTickets(requestedTickets) {
   }
 }
 
+/**
+ * @param  {{ADULT: number, CHILD: number, INFANT : number}} requestedTickets
+ * @description validates the number of tickets to be purchased and if it breaks any business conditions
+ */
 export function validateTicketsLogic(requestedTickets) {
   logger.debug("In validateTicketsLogic()");
 
