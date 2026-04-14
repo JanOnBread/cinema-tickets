@@ -17,9 +17,3 @@ export default function calculateCostsAndSeats(requestedTickets) {
     numSeats: requestedTickets.adult + requestedTickets.child,
   };
 }
-
-// return {
-//   adult: adultCount,
-//   child: childCount,
-//   infant: infantCount,
-// };

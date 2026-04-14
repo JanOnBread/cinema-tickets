@@ -45,6 +45,26 @@ describe("TicketService", () => {
     expect(result).toEqual({ price: 105, seatReservation: 5 });
   });
 
+  test("should return the cost and number of seats allocated when there are no child tickets", () => {
+    const result = ticketService.purchaseTickets(
+      constant.TEST_ACCOUNT_ID,
+      new TicketTypeRequest(constant.ADULT_TYPE, 3),
+      new TicketTypeRequest(constant.INFANT_TYPE, 3),
+    );
+
+    expect(result).toEqual({ price: 75, seatReservation: 3 });
+  });
+
+  test("should return the cost and number of seats allocated when there are no infant tickets", () => {
+    const result = ticketService.purchaseTickets(
+      constant.TEST_ACCOUNT_ID,
+      new TicketTypeRequest(constant.ADULT_TYPE, 1),
+      new TicketTypeRequest(constant.CHILD_TYPE, 3),
+    );
+
+    expect(result).toEqual({ price: 70, seatReservation: 4 });
+  });
+
   test("should throw an error if more the 25 ticket was about at once", () => {
     expect(() =>
       ticketService.purchaseTickets(
@@ -73,13 +93,13 @@ describe("TicketService", () => {
     ).toThrow(errorMessage(error.ONE_ADULT_TICKET));
   });
 
-  test("Sum of child and infant ticket shouldn't exceed total adult tickets", () => {
+  test("Infant ticket shouldn't exceed total adult tickets", () => {
     expect(() =>
       ticketService.purchaseTickets(
         constant.TEST_ACCOUNT_ID,
         new TicketTypeRequest(constant.ADULT_TYPE, 1),
         new TicketTypeRequest(constant.INFANT_TYPE, 2),
       ),
-    ).toThrow(errorMessage(error.CHILD_INFANT_MORE_THAN_ADULT));
+    ).toThrow(errorMessage(error.INFANT_MORE_THAN_ADULT));
   });
 });
