@@ -1,8 +1,8 @@
 import {
   validateRequest,
   validateAccountID,
-  validateNumberOfTickets,
-  validateTicketsLogic,
+  validateTicketQuantities,
+  validateTicketLogic,
 } from "../../../../../src/pairtest/helpers/ValidateRequest";
 import * as error from "../../../../../src/utils/errors";
 
@@ -10,8 +10,8 @@ describe("ValidateRequest", () => {
   test("should be defined", () => {
     expect(validateRequest).toBeDefined();
     expect(validateAccountID).toBeDefined();
-    expect(validateNumberOfTickets).toBeDefined();
-    expect(validateTicketsLogic).toBeDefined();
+    expect(validateTicketQuantities).toBeDefined();
+    expect(validateTicketLogic).toBeDefined();
   });
 
   // Validate Account ID
@@ -30,26 +30,26 @@ describe("ValidateRequest", () => {
 
   test("should give an error if there are any negative tickets", () => {
     expect(() =>
-      validateNumberOfTickets({ ADULT: -1, INFANT: -1, CHILD: -1 }),
+      validateTicketQuantities({ ADULT: -1, INFANT: -1, CHILD: -1 }),
     ).toThrow(error.NEGATIVE_TICKETS);
   });
 
   test("should give an error if there are no adult ticket purchase ", () => {
     expect(() =>
-      validateNumberOfTickets({ ADULT: 0, INFANT: 1, CHILD: 1 }),
+      validateTicketQuantities({ ADULT: 0, INFANT: 1, CHILD: 1 }),
     ).toThrow(error.ONE_ADULT_TICKET);
   });
 
   test("should give an error if more then 25 tickets are bought at once", () => {
     expect(() =>
-      validateNumberOfTickets({ ADULT: 26, INFANT: 0, CHILD: 0 }),
+      validateTicketQuantities({ ADULT: 26, INFANT: 0, CHILD: 0 }),
     ).toThrow(error.OVER_25_TICKETS);
   });
 
-  // validateTicketsLogic
+  // validateTicketLogic
   test("should give an error if the number of infant ticket is more then the number of adult tickets", () => {
     expect(() =>
-      validateTicketsLogic({ ADULT: 1, INFANT: 2, CHILD: 0 }),
+      validateTicketLogic({ ADULT: 1, INFANT: 2, CHILD: 0 }),
     ).toThrow(error.INFANT_MORE_THAN_ADULT);
   });
 });

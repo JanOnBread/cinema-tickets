@@ -21,6 +21,5 @@ export default function extractTicketRequest(ticketTypeRequests) {
     }
   }
 
-  console.log(ticketCounts);
   return ticketCounts;
 }
