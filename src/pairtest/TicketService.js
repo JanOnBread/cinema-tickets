@@ -30,6 +30,7 @@ export default class TicketService {
 
       const { totalPrice, numSeats } = calculateCostsAndSeats(requestedTickets);
 
+      logger.debug(`totalPrice: ${totalPrice}, numSeats: ${numSeats}`);
       this.#makePayment(accountId, totalPrice);
       this.#reserveSeats(accountId, numSeats);
 
