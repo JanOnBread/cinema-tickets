@@ -93,6 +93,19 @@ describe("TicketService", () => {
 
     expect(result).toEqual({ price: 70, seatReservation: 4 });
   });
+  test("should return the cost and number of seats allocated for multiple ticket requests", () => {
+    const result = ticketService.purchaseTickets(
+      constant.TEST_ACCOUNT_ID,
+      new TicketTypeRequest(constant.ADULT_TYPE, 1),
+      new TicketTypeRequest(constant.ADULT_TYPE, 6),
+      new TicketTypeRequest(constant.CHILD_TYPE, 2),
+      new TicketTypeRequest(constant.CHILD_TYPE, 3),
+      new TicketTypeRequest(constant.INFANT_TYPE, 2),
+      new TicketTypeRequest(constant.INFANT_TYPE, 1),
+    );
+
+    expect(result).toEqual({ price: 250, seatReservation: 12 });
+  });
 
   test("should throw an error if more the 25 ticket was about at once", () => {
     expect(() =>
