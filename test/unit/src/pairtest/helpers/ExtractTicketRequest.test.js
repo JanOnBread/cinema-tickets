@@ -15,9 +15,9 @@ describe("CalculateCostsAndSeats", () => {
     ]);
 
     expect(result).toEqual({
-      adult: 3,
-      child: 2,
-      infant: 1,
+      ADULT: 3,
+      CHILD: 2,
+      INFANT: 1,
     });
   });
 });

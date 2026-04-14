@@ -6,7 +6,7 @@ describe("CalculateCostsAndSeats", () => {
   });
 
   test("should calculate the right 1 for total cost and seats", () => {
-    const result = calculateCostsAndSeats({ adult: 1, child: 1, infant: 1 });
+    const result = calculateCostsAndSeats({ ADULT: 1, CHILD: 1, INFANT: 1 });
 
     expect(result).toEqual({ totalPrice: 40, numSeats: 2 });
   });

@@ -30,26 +30,26 @@ describe("ValidateRequest", () => {
 
   test("should give an error if there are any negative tickets", () => {
     expect(() =>
-      validateNumberOfTickets({ adult: -1, infant: -1, child: -1 }),
+      validateNumberOfTickets({ ADULT: -1, INFANT: -1, CHILD: -1 }),
     ).toThrow(error.NEGATIVE_TICKETS);
   });
 
   test("should give an error if there are no adult ticket purchase ", () => {
     expect(() =>
-      validateNumberOfTickets({ adult: 0, infant: 1, child: 1 }),
+      validateNumberOfTickets({ ADULT: 0, INFANT: 1, CHILD: 1 }),
     ).toThrow(error.ONE_ADULT_TICKET);
   });
 
   test("should give an error if more then 25 tickets are bought at once", () => {
     expect(() =>
-      validateNumberOfTickets({ adult: 26, infant: 0, child: 0 }),
+      validateNumberOfTickets({ ADULT: 26, INFANT: 0, CHILD: 0 }),
     ).toThrow(error.OVER_25_TICKETS);
   });
 
   // validateTicketsLogic
   test("should give an error if the number of infant ticket is more then the number of adult tickets", () => {
     expect(() =>
-      validateTicketsLogic({ adult: 1, infant: 2, child: 0 }),
+      validateTicketsLogic({ ADULT: 1, INFANT: 2, CHILD: 0 }),
     ).toThrow(error.INFANT_MORE_THAN_ADULT);
   });
 });

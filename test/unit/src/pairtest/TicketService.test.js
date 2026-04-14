@@ -2,15 +2,32 @@ import TicketService from "../../../../src/pairtest/TicketService";
 import TicketTypeRequest from "../../../../src/pairtest/lib/TicketTypeRequest";
 import * as constant from "../../../../src/utils/constants";
 import * as error from "../../../../src/utils/errors";
+import TicketPaymentService from "../../../../src/thirdparty/paymentgateway/TicketPaymentService";
+import SeatReservationService from "../../../../src/thirdparty/seatbooking/SeatReservationService";
+
+jest.mock("../../../../src/thirdparty/paymentgateway/TicketPaymentService");
+jest.mock("../../../../src/thirdparty/seatbooking/SeatReservationService");
 
 const errorMessage = (errorString) =>
   new Error(`Purchase failed: ${errorString}`);
 
 describe("TicketService", () => {
   let ticketService;
+  let mockMakePayment;
+  let mockSeatReservation;
 
   beforeEach(() => {
     ticketService = new TicketService();
+
+    mockMakePayment = jest.fn();
+    TicketPaymentService.mockImplementation(() => {
+      return { makePayment: mockMakePayment };
+    });
+
+    mockSeatReservation = jest.fn();
+    SeatReservationService.mockImplementation(() => {
+      return { reserveSeat: mockSeatReservation };
+    });
   });
 
   // GENERAL CHECK
@@ -18,18 +35,30 @@ describe("TicketService", () => {
     expect(ticketService.purchaseTickets).toBeDefined();
   });
 
-  test("should throw an error if the payment service returns and error", () => {
-    ticketService.purchaseTickets(
-      constant.TEST_ACCOUNT_ID,
-      new TicketTypeRequest(constant.ADULT_TYPE, 1),
-    );
+  test("should throw an error if the payment service returns an error", () => {
+    mockMakePayment.mockImplementationOnce(() => {
+      throw new Error(error.TICKET_PAYMENT_FAILED);
+    });
+
+    expect(() =>
+      ticketService.purchaseTickets(
+        constant.TEST_ACCOUNT_ID,
+        new TicketTypeRequest(constant.ADULT_TYPE, 1),
+      ),
+    ).toThrow(errorMessage(error.TICKET_PAYMENT_FAILED));
   });
 
-  test("should throw an error if the seat reservation service returns and error", () => {
-    ticketService.purchaseTickets(
-      constant.TEST_ACCOUNT_ID,
-      new TicketTypeRequest(constant.ADULT_TYPE, 1),
-    );
+  test("should throw an error if the seat reservation service returns an error", () => {
+    mockSeatReservation.mockImplementationOnce(() => {
+      throw new Error(error.SEAT_RESERVATION_FAILED);
+    });
+
+    expect(() =>
+      ticketService.purchaseTickets(
+        constant.TEST_ACCOUNT_ID,
+        new TicketTypeRequest(constant.ADULT_TYPE, 1),
+      ),
+    ).toThrow(errorMessage(error.SEAT_RESERVATION_FAILED));
   });
 
   // BUSINESS LOGIC

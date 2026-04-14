@@ -10,3 +10,8 @@ export const OVER_25_TICKETS = "Can't purchase more then 25 tickets at once";
 // ticket logic error
 export const INFANT_MORE_THAN_ADULT =
   "The total infant ticket is greater then the number of adult ticket purchased";
+
+// third party error
+export const TICKET_PAYMENT_FAILED = "Request to ticket payment service failed";
+export const SEAT_RESERVATION_FAILED =
+  "Request to seat reservation service failed";

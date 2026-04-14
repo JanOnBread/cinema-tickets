@@ -2,7 +2,7 @@ import logger from "../../utils/logger";
 import * as constants from "../../utils/constants";
 
 /**
- * @param {{adult: number, child: number, infant : number}} requestedTickets
+ * @param {{ADULT: number, CHILD: number, INFANT : number}} requestedTickets
  * @returns {{totalPrice: number, numSeats: number}}
  * @description Calculate the total cost and number of seat based on the ticket request
  */
@@ -11,9 +11,9 @@ export default function calculateCostsAndSeats(requestedTickets) {
 
   return {
     totalPrice:
-      requestedTickets.adult * constants.ADULT_PRICE +
-      requestedTickets.child * constants.CHILD_PRICE +
-      requestedTickets.infant * constants.INFANT_PRICE,
-    numSeats: requestedTickets.adult + requestedTickets.child,
+      requestedTickets.ADULT * constants.ADULT_PRICE +
+      requestedTickets.CHILD * constants.CHILD_PRICE +
+      requestedTickets.INFANT * constants.INFANT_PRICE,
+    numSeats: requestedTickets.ADULT + requestedTickets.CHILD,
   };
 }
