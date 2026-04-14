@@ -8,15 +8,19 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/pairtest/TicketService.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": " jest ./test/unit --verbose",
     "test:lint": "eslint ."
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
     "@eslint/js": "10.0.1",
-    "eslint": "0.2.0",
-    "globals": "17.4.0"
+    "babel-jest": "^30.3.0",
+    "eslint": "10.2.0",
+    "globals": "17.4.0",
+    "jest": "^30.3.0"
   },
   "dependencies": {
-    "jest": "30.3.0"
+    "winston": "^3.19.0"
   }
 }

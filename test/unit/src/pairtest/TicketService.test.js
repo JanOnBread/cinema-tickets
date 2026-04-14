@@ -1,5 +1,5 @@
-import TicketService from "../src/pairtest/TicketService";
-import TicketTypeRequest from "../src/pairtest/lib/TicketTypeRequest";
+import TicketService from "../../../../src/pairtest/TicketService";
+import TicketTypeRequest from "../../../../src/pairtest/lib/TicketTypeRequest";
 
 describe("TicketService", () => {
   let ticketService;
@@ -24,36 +24,55 @@ describe("TicketService", () => {
   // BUSINESS LOGIC
 
   test("should return the cost and number of seats allocated", () => {
-    ticketService.purchaseTickets(1, new TicketTypeRequest("ADULT", 1));
+    const result = ticketService.purchaseTickets(
+      1,
+      new TicketTypeRequest("ADULT", 3),
+      new TicketTypeRequest("CHILD", 2),
+      new TicketTypeRequest("INFANT", 1),
+    );
+
+    expect(result).toEqual({ price: 105, seatReservation: 5 });
   });
 
   test("should throw an error if more the 25 ticket was about at once", () => {
-    ticketService.purchaseTickets(1, new TicketTypeRequest("ADULT", 1));
+    expect(() =>
+      ticketService.purchaseTickets(1, new TicketTypeRequest("ADULT", 26)),
+    ).toThrow(
+      new Error("Purchase failed: can't purchase more then 25 tickets at once"),
+    );
   });
 
   test("should throw an error if an invalid number of tickets is attempting to be purchased", () => {
-    ticketService.purchaseTickets(1, new TicketTypeRequest("ADULT", -1));
+    expect(() =>
+      ticketService.purchaseTickets(1, new TicketTypeRequest("ADULT", -1)),
+    ).toThrow(
+      new Error("Purchase failed: no negative tickets can be purchased"),
+    );
   });
 
   test("Child and Infant tickets cannot be purchased without purchasing an Adult ticket", () => {
-    ticketService.purchaseTickets(1, new TicketTypeRequest("CHILD", 1));
-
-    ticketService.purchaseTickets(1, new TicketTypeRequest("INFANT", 1));
-
-    ticketService.purchaseTickets(
-      1,
-      new TicketTypeRequest("CHILD", 1),
-      new TicketTypeRequest("INFANT", 1),
+    expect(() =>
+      ticketService.purchaseTickets(
+        1,
+        new TicketTypeRequest("CHILD", 1),
+        new TicketTypeRequest("INFANT", 1),
+      ),
+    ).toThrow(
+      new Error("Purchase failed: at least 1 adult needs to be purchased"),
     );
   });
 
   test("Assume an adult can only have 1 infant on their lap", () => {
-    const result = ticketService.purchaseTickets(
-      1,
-      new TicketTypeRequest("ADULT", 1),
-      new TicketTypeRequest("INFANT", 2),
+    expect(() =>
+      ticketService.purchaseTickets(
+        1,
+        new TicketTypeRequest("ADULT", 1),
+        new TicketTypeRequest("INFANT", 2),
+      ),
+    ).toThrow(
+      new Error(
+        "Purchase failed: the total child and infant ticket is greater then the number of adult ticket purchased",
+      ),
     );
-
-    expect(result).toThrow(InvalidInputException);
   });
 });
