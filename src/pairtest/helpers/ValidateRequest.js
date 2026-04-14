@@ -19,7 +19,7 @@ export function validateRequest(accountID, requestedTickets) {
  * @param {Number} accountID
  * @description validates the account is numeric. Throws error when invalid
  */
-function validateAccountID(accountID) {
+export function validateAccountID(accountID) {
   logger.debug("In validateAccountID()");
 
   if (typeof accountID !== "number") {
@@ -31,7 +31,7 @@ function validateAccountID(accountID) {
   }
 }
 
-function validateNumberOfTickets(requestedTickets) {
+export function validateNumberOfTickets(requestedTickets) {
   logger.debug("In validateNumberOfTickets()");
 
   // no negative tickets
@@ -57,14 +57,11 @@ function validateNumberOfTickets(requestedTickets) {
   }
 }
 
-function validateTicketsLogic(requestedTickets) {
+export function validateTicketsLogic(requestedTickets) {
   logger.debug("In validateTicketsLogic()");
 
-  // #child/infant ticket < adult ticket
-  if (
-    requestedTickets.adult <
-    requestedTickets.child + requestedTickets.infant
-  ) {
-    throw new InvalidPurchaseException(error.CHILD_INFANT_MORE_THAN_ADULT);
+  //  # adult < infant
+  if (requestedTickets.adult < requestedTickets.infant) {
+    throw new InvalidPurchaseException(error.INFANT_MORE_THAN_ADULT);
   }
 }
