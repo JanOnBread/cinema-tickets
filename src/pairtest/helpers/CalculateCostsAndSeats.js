@@ -2,9 +2,9 @@ import logger from "../../utils/logger";
 import * as constants from "../../utils/constants";
 
 /**
+ * @description Calculate the total cost and number of seat based on the ticket request
  * @param {{ADULT: number, CHILD: number, INFANT : number}} requestedTickets
  * @returns {{totalPrice: number, numSeats: number}}
- * @description Calculate the total cost and number of seat based on the ticket request
  */
 export default function calculateCostsAndSeats(requestedTickets) {
   logger.debug("In calculateCostsAndSeats()");

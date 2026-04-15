@@ -2,6 +2,7 @@ import logger from "../../utils/logger";
 import InvalidPurchaseException from "../lib/InvalidPurchaseException";
 import * as error from "./../../utils/errors";
 import { MAX_TICKET_PURCHASE } from "./../../utils/constants";
+
 /**
  * @description Validates account and ticket request.
  * @param {Number} accountID
