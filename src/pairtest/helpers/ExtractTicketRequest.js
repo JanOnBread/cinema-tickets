@@ -2,8 +2,8 @@ import logger from "../../utils/logger";
 import * as constants from "./../../utils/constants";
 
 /**
- * @param {Array} ticketTypeRequests
  * @description extract ticketTypeRequest so it's easier to work with
+ * @param {Array} ticketTypeRequests
  */
 export default function extractTicketRequest(ticketTypeRequests) {
   logger.debug("In extractTicketRequest()");
@@ -16,7 +16,7 @@ export default function extractTicketRequest(ticketTypeRequests) {
 
   for (const ticket of ticketTypeRequests) {
     const ticketType = ticket.getTicketType();
-    if (ticketCounts.hasOwnProperty(ticketType)) {
+    if (Object.hasOwn(ticketCounts, ticketType)) {
       ticketCounts[ticketType] += ticket.getNoOfTickets();
     }
   }

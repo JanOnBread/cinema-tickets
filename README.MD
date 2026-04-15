@@ -50,11 +50,23 @@ Looking at the business rules and assumptions, we format that into logic and val
 
 - If a negative number of tickets was attempted to be purchased
 
-- If child and infant tickets are selected without an adult ticket ie {CHILD : 1+, INFANT: 1+, ADULT : 0 } which means at least one adult ticket must be purchased.
+- If child and infant tickets are selected without an adult ticket ie `{CHILD : 1+, INFANT: 1+, ADULT : 0 }` which means at least one adult ticket must be purchased.
 
 - if more then 25 tickets were being purchased at once
 
 - Assume adult can only have 1 infant on their lap so the # adult ticket must be greater or equal to # infant tickets
+
+# Approach
+
+The plan, as illustrated in the diagram above, is to allow the request to flow through the `TicketService.js`. The request will go through a series of steps: extraction, validation, and calculation, before finally being sent to `TicketPaymentService.js` and `SeatReservationService.js` to handle the payment and reserve the correct number of seats.
+
+This entire process is wrapped in a try-catch block, so if an error occurs at any point, it will be caught and thrown back.
+
+A brief explanation of the helper modules:
+
+- `ExtractTicketRequest.js`: Extracts the ticket type request, making it easier to work with during validation and cost calculation.
+- `ValidationRequest.js`: Validates the request against the business logic.
+- `CalculateCostsAndSeats.js`: If the request passes validation, this module uses the extracted data to calculate the total cost and the number of seats to reserve.
 
 # Setup
 
